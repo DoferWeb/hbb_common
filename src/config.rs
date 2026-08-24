@@ -114,8 +114,8 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
-pub const RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
+pub const RENDEZVOUS_SERVERS: &[&str] = &["195.35.45.44"];
+pub const RS_PUB_KEY: &str = "lfRJ6L5QBf4NsF5YJ3b7qQdL3Rmm9m7yrkxPv4zjhyo=";
 
 pub const RENDEZVOUS_PORT: i32 = 21116;
 pub const RELAY_PORT: i32 = 21117;
@@ -2770,6 +2770,9 @@ fn is_option_can_save(
 
 #[inline]
 pub fn is_incoming_only() -> bool {
+    #[cfg(feature = "incoming_only")]
+    return true;
+    #[cfg(not(feature = "incoming_only"))]
     HARD_SETTINGS
         .read()
         .unwrap()
